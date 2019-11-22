@@ -1,0 +1,2 @@
+# ansible_mysql_master_slave
+使用ansible部署mysql主从复制
