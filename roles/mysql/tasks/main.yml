@@ -1,14 +1,13 @@
 ---
 - name: stop firewalld
-  shell: systemctl stop firewalld >> /tmp/a.txt
+  shell: systemctl stop firewalld
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"
 
 - name: disable firewalld
-  shell: systemctl disable firewalld >> /tmp/a.txt
-
-- name: rm tmp file
-  file:
-    path: /tmp/a.txt
-    state: absent
+  shell: systemctl disable firewalld
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"
 
 - name: install repository
   yum :
