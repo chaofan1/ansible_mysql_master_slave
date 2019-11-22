@@ -1,0 +1,10 @@
+---
+- name: Install MySQL Replication Cluster
+  hosts: mysql_servers
+  remote_user: root
+  become: yes
+
+  tags:
+     - install-mysql
+  roles:
+      - mysql
