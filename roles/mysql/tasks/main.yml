@@ -36,14 +36,19 @@
     echo `grep 'temporary.*root@localhost' "{{ mysqld_error_log  }}" | sed 's/.*root@localhost: //'`
   register: mysql_root_password_temp
 
-- name: Set new password for mysql root user
+- name: Set new tmp password for mysql root user
   shell: >
-      mysql -NBe "alter user USER() identified by '{{ mysql_root_password }}';"
+      mysql -NBe "alter user USER() identified by '{{ mysql_root_tmp_password }}';"
       --connect-expired-password -uroot -p'{{ mysql_root_password_temp.stdout }}'
 
 - name: uninstall validate_password plugin
   shell: >
-      mysql -NBe "uninstall plugin validate_password" -uroot -p'{{ mysql_root_password  }}'
+      mysql -NBe "uninstall plugin validate_password" -uroot -p'{{ mysql_root_tmp_password  }}'
+
+- name: Set new password for mysql root user
+  shell: >
+      mysql -NBe "alter user USER() identified by '{{ mysql_root_password }}';"
+      --connect-expired-password -uroot -p'{{ mysql_root_tmp_password }}'
 
 - name: install MySQL-python
   yum:
