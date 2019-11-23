@@ -29,6 +29,10 @@ ip ansible_ssh_user="部署机器用户" ansible_ssh_pass="用户登录密码" m
 master_ip
 mysql_version
 
+# mysql的临时密码，此处不用修改
+mysql_root_tmp_password
+
+# mysql的root密码，这里可以自定义
 mysql_root_password
 
 mysql_repl_user=mysql主从用户
